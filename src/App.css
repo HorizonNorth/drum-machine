@@ -2,10 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;}
-
-html, body {
-  width: 100%;
-  height: 100%;}
+  
+  html, body {
+    user-select: none;
+    width: 100%;
+    height: 100%;}
   
   body {
     background: linear-gradient(360deg, #00f060, #fbd786, #f7797d);
@@ -15,7 +16,6 @@ html, body {
     align-items: center;
     justify-content: center;
     font-family: 'VT323', monospace;
-    /* animation: circle 5s ease infinite; */
   }
   
   #drum-machine {
@@ -39,9 +39,13 @@ html, body {
     height: 14vh;
     margin: 4px;
     box-shadow: black 2px 3px 5px;
+    outline: none;
     border-radius: 5px;
+  } 
+  .drum-pad:active {
+    box-shadow: none;
   }
-  
+
   .display {
     margin-left: 10px;
     border-radius: 5px;
@@ -52,15 +56,4 @@ html, body {
     width: 24%;
     height: 7vh;
     background-color: greenyellow;
-}
-
-/* @keyframes circle {
-  from {
-    background: linear-gradient(180deg, #00f060, #fbd786, #f7797d);
   }
-  
-  to {
-    background: linear-gradient(360deg, #00f060, #fbd786, #f7797d);
-  }
-} */
-

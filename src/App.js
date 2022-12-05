@@ -1,30 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import './App.css';
-import AudioButton from './components/AudioButton'
-import * as allaudio from './audioImport'
+import lettersWithSounds from './audioimport'
 
 function App() {
   
-  const buttons = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
-  const [text, setText] = useState('')
-  const handleText = (id) => setText(id)
-   
-  let audioArray = []
-  for (const key in allaudio) {
-    const element = allaudio[key];
-      audioArray.push(element); }
-  const mappedList = buttons.map((i, index) => 
-  <AudioButton id={i} key={i} 
-  audiosrc={audioArray[index]} 
-  onMouseDown={() => handleText(i)} />)
- 
+  const [text, setText] = useState('hi =)')
+  useEffect(() => {
+    document.addEventListener('keydown', (event) => {
+      let code = event.code[3]
+      try {
+        playSound(code,  lettersWithSounds[code])
+      } catch{}
+      })
+  }, [])
+  
+  const playSound = (text) => {
+    let audio = document.getElementById(text)
+    audio.play()
+    setText(text)
+  } 
+  
   return (
-    <div id="drum-machine">
-      <div className='container'>
-      {mappedList}     </div>
+    <div id="drum-machine" >
+      <div className='container'> 
+        {lettersWithSounds.map((item) => { return (
+          <button 
+          className="drum-pad" 
+          key={item.sound} id={item.sound}
+          onClick={() => {playSound(item.text)}} 
+          >
+            {item.text}
+            <audio 
+            className="clip" 
+            id={item.text} 
+            src={item.sound}>
+            </audio>
+          </button>
+          )}
+        )}
+      </div>
       <p className='display' id="display">{text}</p>
     </div>
   );
 }
 
-export default App;
+export default App
